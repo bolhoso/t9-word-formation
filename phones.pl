@@ -18,40 +18,49 @@
 use strict;
 use warnings;
 
+# Hash mapping each alphabet letter to its T9 correspondence
 my $t9_map = {
-  'S' => 7,
-  'F' => 3,
-  'T' => 8,
-  'N' => 6,
-  'K' => 5,
-  'Y' => 9,
-  'E' => 3,
-  'V' => 8,
-  'Z' => 9,
-  'Q' => 7,
-  'M' => 6,
-  'C' => 2,
-  'L' => 5,
   'A' => 2,
+  'B' => 2,
+  'C' => 2,
+  'D' => 3,
+  'E' => 3,
+  'F' => 3,
+  'G' => 4,
+  'H' => 4,
+  'I' => 4,
   'J' => 5,
+  'K' => 5,
+  'L' => 5,
+  'M' => 6,
+  'N' => 6,
   'O' => 6,
+  'P' => 7,
+  'Q' => 7,
+  'R' => 7,
+  'S' => 7,
+  'T' => 8,
+  'U' => 8,
+  'V' => 8,
   'W' => 9,
   'X' => 9,
-  'P' => 7,
-  'B' => 2,
-  'H' => 4,
-  'D' => 3,
-  'R' => 7,
-  'I' => 4,
-  'G' => 4,
-  'U' => 8
+  'Y' => 9,
+  'Z' => 9,
 };
 
 ################################################################################
 # Helper functions
 ################################################################################
 
+# word2t9
+#
 # Convert a word to a T9 representation
+# Params:
+#   $word: the word to convert to T9
+#   \%t9_map: the letter to digit map
+#
+# Returns: the sequence of numbers that represent the input word in T9
+#
 sub word2t9 {
   my ($word, $t9_map) = @_;
 
@@ -63,10 +72,17 @@ sub word2t9 {
   return $t9_word;
 }
 
-# Read words from a dictionary and convert it to T9 format
+# make_t9_dict
+#
+# Convert each dictionary words to its T9 representation
 # 
 # Parameters
-#   $t9_map:
+#   \@words: reference toa
+#   \%t9_map: the letter to digit map
+#
+# Returns: reference to a hash containing the digits sequences as keys
+#          and a reference to an array with the possible words formed from that 
+#          sequence
 #
 sub make_t9_dict {
   my ($words, $t9_map) = @_;
@@ -91,8 +107,18 @@ sub make_t9_dict {
   return $t9_hash;
 }
 
-# Read a hash of people containing name and phone
-sub read_people {
+# read_peopl
+#
+# Read a phonebook composed of people names and their phone
+# 
+# Parameters:
+#   $filename: phonebook filename
+# 
+# Returns: a hash containing the names in the keys and the phone in the values
+#
+sub read_phonebook {
+  my ($filename) = shift;
+
   # TODO: stub
   {
     "john" => 2255,
@@ -101,6 +127,12 @@ sub read_people {
   }
 }
 
+# read_dict
+# 
+# Reads a list of words separated by blanks from a file
+#
+# Returns: reference to array containing the words
+#
 sub read_dict {
   my $file = shift;
 
@@ -111,7 +143,13 @@ sub read_dict {
 # Returns a hash containing the people's name as keys and possible
 # words formed from their phone number
 #
-
+# Parameters:
+#   \%people: reference to a hash with people's names as keys and phones as values
+#   \%dict: reference to the t9 dictionary, as returned by make_t9_dict
+#
+# Returns: reference to hash containing people's names as keys and possible words
+#          formed from their phones as values
+#
 sub phone_word {
   my ($people, $dict) = @_;
 
@@ -131,7 +169,7 @@ sub phone_word {
 # The huge dictionary containing the words we know
 my $words = [qw(BALL CAKL DOG CAT YELLOW BLUE SKY AND SO ON A LOT OF WORDS IN THIS GOD DAMN WORLD ABU)];
 my $dict = make_t9_dict ($words, $t9_map);
-my $people = read_people;
+my $people = read_phonebook;
 
 use Data::Dumper;
 my $a = phone_word ($people, $dict);
