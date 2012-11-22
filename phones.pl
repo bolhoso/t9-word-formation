@@ -1,16 +1,17 @@
 #!/usr/bin/perl
 
 ################################################################################
-# Every number in phone has some corresponding digits.
-# Imagine you have a list of users and you´d like to make
-# a fancy feature that show possible words to form from their
+# Knowing that every number in phone has some corresponding digits,
+# imagine you have a list of users and you´d like to make
+# a fancy feature that shows possible words formed from their
 # phone number and print all the possibilities.
 # You can assume that a word is formed from the full phone
-#
-# Code a method called phone_word that receives the user phone
-# as the input and return an array with all possible words from
-# a dictionary.
-#
+# 
+# This program reads a dictionary and a phonebook containing names and phone numbers and
+# prints all the possible words formed from their phonenumbers that are available in the
+# dictionary.
+# 
+# Author: Lucas Rosada
 ################################################################################
 
 use strict;
